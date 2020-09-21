@@ -1,0 +1,11 @@
+{
+    "apps":[
+        {
+            "name": "VibeEngine Server",
+            "script":"/Users/ethanfowler/Projects/VEServer/main.js",
+            "watch":["*.js","**/*.js","**/*.json"],
+            "cwd":"/Users/ethanfowler/Projects/VEServer",
+            "autorestart":true
+        }
+    ]
+}
