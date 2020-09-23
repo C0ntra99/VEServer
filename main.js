@@ -55,3 +55,6 @@ cron.schedule('*/3 * * * * *', () => {
 })
 
 //^ Scorig the instances might be able to do something similar
+cron.schedule('*/3 * * * * *', () => {
+    Engine.score_running_instances();
+})

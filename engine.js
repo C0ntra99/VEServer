@@ -1,5 +1,9 @@
+//Load schemas
 const Round_schema = require('./routes/models/Round');
+const Instance_schema = require('./routes/models/Instance');
+
 const logger = require('./plugins/logger');
+const axios = require('axios')
 class Engine {
     check_times() {
         //logger.info({label:`Engine[check_times]`, message:`Checking times on running rounds`})
@@ -24,6 +28,34 @@ class Engine {
                 }
             })
         });
+    }
+
+    get_running_instances() {
+        return new Promise((resolve, reject) => {
+            Instance_schema.find({running:true}, (err, instances) => {
+                if(err){
+                    return reject(err)
+                }
+                return resolve(instances)
+            })
+        })
+        
+    }
+
+    async score_running_instances() {
+        let running_instances = await this.get_running_instances();
+        //logger.debug({label:`engine[score_running_instances]`, message: running_instances})
+        running_instances.forEach((instance) => {
+            axios.get(`http://${instance.os_details.network.ip_addr}:8081/api/scoring`) //maybe grab port from elsewhere
+            .then((resp) => {
+                logger.debug({label:`engine[score_running_instances]`, message:`Score recieved from ${instance.os_details.network.ip_addr}`})
+                //console.log(resp.data)
+            })
+            .catch((err) => {
+                logger.error({label:`engine[score_running_instances]`, message:`Unable to score Instance ${instance._id}: ${err}`})
+            })
+            logger.debug({label:`engine[score_running_instances]`, message:`Scoring instance: ${instance._id}`})
+        })
     }
 }
 

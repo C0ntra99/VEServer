@@ -17,6 +17,9 @@ const Round_schema = new Schema(
             instance_time_limit: {type:Number, min:1, max:9999, default:360},
             instance_limit: {type:Number, min:1, max:5, default:1}
         },
+        teams:[
+            {type:mongoose.Schema.Types.ObjectId, ref:'Teams'}
+        ],
         time_started: Date,
         time_finished: Date,
         completed: false

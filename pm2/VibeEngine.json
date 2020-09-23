@@ -1,6 +1,13 @@
 {
     "apps":[
         {
+            "name": "VibeEngine Client",
+            "script":"/Users/ethanfowler/Projects/VEClient/main.js",
+            "watch":["*.js","**/*.js","**/*.json"],
+            "cwd":"/Users/ethanfowler/Projects/VEClient",
+            "autorestart":true
+        },
+        {
             "name": "VibeEngine Server",
             "script":"/Users/ethanfowler/Projects/VEServer/main.js",
             "watch":["*.js","**/*.js","**/*.json"],
