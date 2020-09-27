@@ -1,11 +1,35 @@
 const { v4: uuid } = require('uuid');
 const Round_schema = require('../models/Round')
+const _ = require('lodash')
+const logger = require('../../plugins/logger')
+const Utilities = require('../../plugins/Utilities')
+
+const Utils = new Utilities;
+
 class Round_helper {
 
-    getRound() {
+    getRound(query) {
         return new Promise((resolve, reject) => {
 
-            return resolve({status:200, message:"Hello World!"})
+            let invalid_list = Utils.validate_get_query(query, ['instances', 'config', 'teams'])
+            if(invalid_list) {
+                return resolve({status:403, message:`Unable to perform query with the following keys`, invalid_keys:invalid_list})
+            }
+
+            //The populate function will only resolve the object IDs if verbose=true
+            //Pretty proud of that functions ngl
+            Round_schema.find(_.omit(query, 'verbose')).populate(((query.verbose) ? 'instances':'')).exec( (err, round) => {
+                logger.info({label:`getRound`, message:`Round query with the following parameters: ${JSON.stringify(query)}`})
+                if(err){
+                    //I really hate if statements...I dont wanna use them :'(
+                    logger.err({label:`getRound`, message:err})
+                    return resolve({status:500, message:err})
+                } else if(!round) {
+                    return resolve({status:200, message:`No round found with the given parameters`})
+                } else {
+                    return resolve({status:200, round:round})
+                }
+            })
         })
     } 
 

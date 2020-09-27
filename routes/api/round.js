@@ -5,7 +5,7 @@ const Round_helper = require('../helpers/Round_helper')
 const Helper = new Round_helper
 
 router.get('/', async (req, res) => {
-    let result = await Helper.getRound();
+    let result = await Helper.getRound(req.query);
     return res.json(result)
 });
 

@@ -51,7 +51,7 @@ app.listen(port, () => {
 //This should be able to be configured
 cron.schedule('*/3 * * * * *', () => {
     //logger.info({label:`main`, message:`Checking times`})
-    Engine.check_times();
+    Engine.check_round_times();
 })
 
 //^ Scorig the instances might be able to do something similar
