@@ -45,6 +45,7 @@ class Engine {
     async score_running_instances() {
         let running_instances = await this.get_running_instances();
         logger.debug({label:`engine[score_running_instances]`, message: running_instances.length})
+        //Verify start time and end time here
         running_instances.forEach((instance) => {
             axios.get(`http://${instance.os_details.network.ip_addr}:8081/api/scoring`) //maybe grab port from elsewhere
             .then((resp) => {

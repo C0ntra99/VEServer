@@ -34,5 +34,101 @@ verrsion: v1
         /stop:
             get:
 /team:
+    get:
+        description: Get all team information.
+        queryParameters:
+            name:
+                displayName: Team Name
+                type: string
+                description: Name of the team.
+                required: false
+            number:
+                displayName: Team number
+                type: string
+                description: Team number
+                required: false
+            state:
+                displayName: state
+                type: string
+                description: Team's residing state
+                required: false
+            coach:
+                displayName: Coach
+                type: string
+                description: Coach of team.
+                required: false
+            division: 
+                displayName: division
+                type: string
+                description: Team's competiting division.
+                required: false
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: |
+                            {
+                                "status":200,
+                                "message":"Retrived teams"
+                                "data":[
+                                    {
+                                        "team_name": "Team Byte",
+                                        "team_number": "OK-12376",
+                                        "uid": "a2ad2-a4h3-b7e4-c4b3",
+                                        "state": "Oklahoma",
+                                        "coach": "Ethan Fowler", 
+                                        "division": "Open",
+                                        "orginization": "Mid-Del Technology Center"
+                                    }
+                                ]   
+                            }
+
+            
+    post:
+        queryParameters:
+            name:
+                displayName: Team Name
+                type: string
+                description: Name of the team.
+                required: true
+            state:
+                displayName: state
+                type: string
+                description: Team's residing state
+                required: true
+            coach:
+                displayName: Coach
+                type: string
+                description: Coach of team.
+                required: true
+            email:
+                displayName: Team Email
+                type: string
+                description: contact email for team
+                required: true
+            division: 
+                displayName: division
+                type: string
+                description: Team's competiting division.
+                required: true
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: |
+                            {
+                                "status":200,
+                                "message":"Created new team"
+                                "data":{
+                                    "team_name": "Team Byte",
+                                    "team_number": "OK-12345",
+                                    "uid": "a2ad2-a4h3-b7e4-c4b3",
+                                    "state": "Oklahoma",
+                                    "coach": "Ethan Fowler", 
+                                    "team_email":"team.byte@gmail.com"
+                                    "division": "Open",
+                                    "orginization": "Mid-Del Technology Center"
+                                }   
+                            }
 
 

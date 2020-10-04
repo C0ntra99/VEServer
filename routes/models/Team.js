@@ -11,6 +11,11 @@ const Team_schema = new Schema(
         instances: [
             {type: mongoose.Schema.Types.ObjectId, ref:'Instances'}
         ],
+        state: {type: String, required:[true, "Team's residing state required"]}.
+        coach: String, 
+        team_email:{type:string, required:[true, "Email required for team."]} //this needs to be validated
+        division: {type:String, enum:['Open','Middle School', 'rotc', etc..], required:[true, "Team division required"]}
+        orginization: {type:String, descritpion:"Name of school/orgnization the team competes under."
         */ 
     },
     {timestamps: true}

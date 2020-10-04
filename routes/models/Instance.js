@@ -49,7 +49,9 @@ Instance_schema.pre('save', async function(next){
     if (!existing_round) {
         next("Round not found")
     }
-
+    if(!existing_round.running){
+        next("Round not running")
+    }
     next()
 })
 
